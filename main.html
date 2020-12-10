@@ -1,0 +1,53 @@
+<html>  
+    <head>
+        <title>Christopher christo.liunanda@gmail.com Universitas Kristen Petra</title>
+        <style>
+        input[type=text] {
+            width: 20%;
+            background-repeat: no-repeat;
+            padding: 10px 10px 10px 20px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            transition: width 0.6s ease-in-out;
+            
+        }
+        input[type=text]:focus {
+            background-color: lightgray;
+            border: 3px solid #555;
+            width: 100%;
+        }
+        button{
+            background-color: black;
+            border: none;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+
+    <body>
+        <form>
+            <label>Nama</label></br>
+            <input type="text" id="formNama" placeholder="Ex: Christopher"></br>
+            <label>Email</label></br>
+            <input type="text" id="formEmail" placeholder="Ex: christo.liunanda@gmail.com"></br>
+            <label>Universitas</label></br>
+            <input type="text" id="formUniversitas" placeholder="Ex: Universitas Petra"></br>
+        
+            <button type="button" onclick="showConsole()">Submit</button>
+ 
+        </form>
+    </body> 
+
+    <script>
+        function showConsole(){
+            var nama=document.getElementById("formNama").value;
+            var email=document.getElementById("formEmail").value;
+            var universitas=document.getElementById("formUniversitas").value;
+            console.log(nama+"\n"+email+"\n"+universitas);
+        }
+    </script>
+</html>
