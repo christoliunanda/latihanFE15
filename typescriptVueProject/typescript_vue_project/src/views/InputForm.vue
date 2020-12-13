@@ -35,6 +35,7 @@ abstract class BaseUser implements User{
 
   showInLog(){
     console.log(`Full Detail\nRole: ${this.role}\nName: ${this.nama}\nID: ${this.id}`);
+    alert("Output is in console log");
   }
 }
 
@@ -81,6 +82,7 @@ export default class InputForm extends Vue {
     }else{
       alert("Role non-existant, please choose a role");
     }
+
 
   }
 
