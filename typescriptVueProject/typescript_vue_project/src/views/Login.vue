@@ -14,6 +14,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import router from '../router'
+import Vue2 from 'vue'
 var self = this;
 
 @Component
@@ -31,10 +32,17 @@ export default class LoginForm extends Vue {
           let tempUserList = JSON.parse(userList);
           for(let i in JSON.parse(userList)){ 
               if(tempUserList[i].id == this.formId){
-                  localStorage.setItem('currentUser',JSON.stringify(tempUserList[i]));
-                  console.log("Login Success");
-                  router.push({name: "Home"});
-                  break;
+                localStorage.setItem('currentUser',JSON.stringify(tempUserList[i]));
+                console.log("Login Success");
+                router.push({name: "Home"});
+            
+                this.$notify({
+                group: 'foo',
+                title: 'Important message',
+                text: 'Hello user! This is a notification!'
+                });
+
+                break;
               }
           }
       }

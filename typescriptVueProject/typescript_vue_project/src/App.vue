@@ -7,10 +7,13 @@
       <!-- |<router-link to="/registration">Registration</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/logout">Logout</router-link>  -->
-    
     </div>
     <router-view/>
+
+    <notification group="foo"> </notification>
+    
   </div>
+  
 </template>
 
 
