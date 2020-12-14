@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
 
     <div v-if="curUser==null"> 
-      <h1>Please click here to Login</h1>
+      <h1>Please click here to Login1</h1>
     </div>
     
     <div v-if="curUser!=null">
@@ -25,9 +25,9 @@ export default class HelloWorld extends Vue {
 
   constructor(){
     console.log('test');
-    super();
     let curUser = localStorage.getItem('currentUser');
     console.log(curUser);
+    super();
   }
 
 }
