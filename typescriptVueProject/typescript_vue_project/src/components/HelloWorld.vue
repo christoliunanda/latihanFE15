@@ -2,13 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <div v-if="curUser==null"> 
-      <h1>Please click here to Login1</h1>
-    </div>
-    
-    <div v-if="curUser!=null">
-      <h1>Please click here to Logout</h1>
-    </div>
     
 
   </div>
@@ -16,19 +9,25 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Admin } from '../entity/Admin';
 
 
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  @Prop() private curUser: any;
+  // private curUser: any;
+  // private userName: string = "";
 
-  constructor(){
-    console.log('test');
-    let curUser = localStorage.getItem('currentUser');
-    console.log(curUser);
-    super();
-  }
+  // let currentUserData = localStorage.getItem('currentUser');
+  //  if(currentUserData !== null){
+  //    msg = JSON.parse(currentUserData).nama;
+  // }
+
+  // constructor(){
+  //   super();
+  //   this.curUser = localStorage.getItem('currentUser');
+  //   this.userName = this.curUser.nama;
+  // }
 
 }
 </script>

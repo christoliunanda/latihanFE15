@@ -7,6 +7,6 @@ export abstract class BaseUser implements User{
     public abstract role: Role;
     showInLog(){
       console.log(`Full Detail\nRole: ${this.role}\nName: ${this.nama}\nID: ${this.id}`);
-      alert("Output is in console log");
+      //alert("Output is in console log");
     }
 }

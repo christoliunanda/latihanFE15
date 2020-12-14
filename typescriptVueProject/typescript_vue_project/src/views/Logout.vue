@@ -19,7 +19,7 @@ export default class LoginForm extends Vue {
      
       if(curUser != null){
           localStorage.removeItem('currentUser')
-          router.push({name: 'LoginForm'});
+          router.push({name: 'Home'});
       }
   }
 
