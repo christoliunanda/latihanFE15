@@ -5,13 +5,13 @@
     
     <div v-if="curUser==null"> 
       <h1>Please <router-link to="/login">Login</router-link>
-        <router-view/> First</h1>
+         First</h1>
     </div>
     
     <div v-if="curUser!=null">
       <h1>Welcome {{userName}} !</h1>
       <h1>Please click <router-link to="/logout">here</router-link>
-        <router-view/> to Logout</h1>
+         to Logout</h1>
     </div>
 
   </div>

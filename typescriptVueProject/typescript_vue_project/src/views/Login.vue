@@ -37,9 +37,9 @@ export default class LoginForm extends Vue {
                 router.push({name: "Home"});
             
                 this.$notify({
-                group: 'foo',
-                title: 'Important message',
-                text: 'Hello user! This is a notification!'
+                    group: 'foo',
+                    title: 'Important message',
+                    text: 'Login Success!'
                 });
 
                 break;

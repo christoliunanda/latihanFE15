@@ -10,7 +10,7 @@
     </div>
     <router-view/>
 
-    <notification group="foo"> </notification>
+    <notifications group="foo" position="bottom right" />
     
   </div>
   

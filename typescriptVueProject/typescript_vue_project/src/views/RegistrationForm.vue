@@ -20,7 +20,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import {Admin} from './../entity/Admin';
 import {Mahasiswa} from './../entity/Mahasiswa';
-
+import router from '../router'
 
 
 @Component
@@ -65,13 +65,18 @@ export default class RegistrationForm extends Vue {
         let users = [];
         let tempParse = JSON.parse(oldUsersList);
         for(let index in JSON.parse(oldUsersList)){
-          console.log(index);
-          console.log(oldUsersList);
+          
           users.push(tempParse[index]);
         }
         users.push(newUser);
-        console.log(users);
+        this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: 'Registration Success!'
+        });
+        
         localStorage.setItem('users',JSON.stringify(users));
+        router.push({name: 'Home'});
       }
   }
 

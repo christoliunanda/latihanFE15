@@ -20,6 +20,11 @@ export default class LoginForm extends Vue {
       if(curUser != null){
           localStorage.removeItem('currentUser')
           router.push({name: 'Home'});
+          this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: 'Logout Success!'
+          });
       }
   }
 
