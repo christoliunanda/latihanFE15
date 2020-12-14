@@ -4,7 +4,9 @@
         <h1 align="center">Login Page</h1>
         <label>ID</label><br>
         <input type="number" id="formId" v-model="formId" placeholder="Put your NIP or NIM here"><br>
-        <button type="button" v-on:click="formLogIn()">Log In</button>
+        <button type="button" v-on:click="formLogIn()">Log In</button><br>
+        <router-link to="/registration" tag="button">Registration</router-link>
+        <router-view/>
     </form>
   </div>
 </template>

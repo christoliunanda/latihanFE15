@@ -11,17 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-  name: "MyComponent",
-  data() {
-    return {
-      g_logged_in: ""
-    };
-  }
-})
-</script>
+
 
 
 <style lang="scss">
