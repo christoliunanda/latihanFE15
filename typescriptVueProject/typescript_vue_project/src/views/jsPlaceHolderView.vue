@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    
+    <ul>
+        <li v-for="data in jsonData" :key="data.id">{{data}}</li>
+    </ul>
 
   </div>
 </template>
@@ -11,11 +13,13 @@ declare var require: any
 
 export default class jsPlaceHolderView extends Vue {
     public axios = require('axios').default;
-
+    public jsonData= [{'id': 1,'nama':'test'},{'id': 2,'nama':'test2'}];
     async getUser() {
         console.log("Get User Called")
         try {
             const response = await this.axios.get('http://jsonplaceholder.typicode.com/users');
+            this.jsonData = response;
+            console.log(this.jsonData);
             console.log(response);
         } catch (error) {
             console.error(error);
