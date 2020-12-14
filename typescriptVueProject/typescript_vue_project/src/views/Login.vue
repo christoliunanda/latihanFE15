@@ -4,70 +4,39 @@
         <h1 align="center">Login Page</h1>
         <label>ID</label><br>
         <input type="number" id="formId" v-model="formId" placeholder="Put your NIP or NIM here"><br>
-        <button type="button" v-on:click="formSubmit()">Log In</button>
+        <button type="button" v-on:click="formLogIn()">Log In</button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import {Admin} from './../entity/Admin';
-import {Mahasiswa} from './../entity/Mahasiswa';
-
-
+import router from '../router'
+var self = this;
 
 @Component
 export default class LoginForm extends Vue {
-  private formNama: string = "";
+  //Member
   private formId: number = 0;
-  private formRole: string = "";
-  public formSubmit(): void{
-    if(this.formRole == "Admin" ){
-      const newAdmin: Admin = new Admin();
-      newAdmin.nip = this.formId;
-      newAdmin.id = this.formId;
-      newAdmin.nama = this.formNama;
-      newAdmin.showInLog();
-
-      this.regisNewUser(newAdmin);
-
-
-    }else if(this.formRole == "Mahasiswa" ){
-      const newMahasiswa: Mahasiswa = new Mahasiswa();
-      newMahasiswa.nim = this.formId;
-      newMahasiswa.id = this.formId;
-      newMahasiswa.nama = this.formNama;
-      newMahasiswa.showInLog();
-
-      this.regisNewUser(newMahasiswa);
-    }else{
-      alert("Role non-existant, please choose a role");
-    }
-
-  }
-
-  public regisNewUser(newUser:any){
-      //Local Storage Save logic
-      let oldUsersList = localStorage.getItem('users');
-      if(oldUsersList == null){
-        let users = [newUser];
-        localStorage.setItem('users',JSON.stringify(users));
-      }else{
-        let users = [];
-        let tempParse = JSON.parse(oldUsersList);
-        for(let index in JSON.parse(oldUsersList)){
-          console.log(index);
-          console.log(oldUsersList);
-          users.push(tempParse[index]);
-        }
-        users.push(newUser);
-        console.log(users);
-        localStorage.setItem('users',JSON.stringify(users));
+ 
+  //Functions
+  public formLogIn(): void{
+      console.log("Log In Pressed");
+      let userList = localStorage.getItem('users'); 
+     
+      if(userList != null){
+          console.log('user not null')
+          let tempUserList = JSON.parse(userList);
+          for(let i in JSON.parse(userList)){ 
+              if(tempUserList[i].id == this.formId){
+                  localStorage.setItem('currentUser',JSON.stringify(tempUserList[i]));
+                  console.log("Login Success");
+                  router.push({name: "Home"});
+                  break;
+              }
+          }
       }
   }
-
-
-
 
 }
 </script>
@@ -109,13 +78,4 @@ button{
     cursor: pointer;
 }
 
-input[type=radio]{
-
-  margin: 10px 0;
-}
-
-label[id=formRole]{
-  padding: 10px 15px 10px 10px;
-  margin: 10px 0;
-}
 </style>

@@ -5,11 +5,24 @@
       <router-link to="/registration">Registration</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/login">Login</router-link> |
-      <router-link to="/logout">Logout</router-link> |
+      <router-link to="/logout">Logout</router-link> 
     </div>
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  name: "MyComponent",
+  data() {
+    return {
+      g_logged_in: ""
+    };
+  }
+})
+</script>
+
 
 <style lang="scss">
 #app {

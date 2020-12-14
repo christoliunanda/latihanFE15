@@ -42,4 +42,18 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next)=>{
+  let g_logged_in:boolean
+  //console.log("BeforeEach Called");
+  if(localStorage.getItem('currentUser')!=null){
+     g_logged_in=true;
+  }else{
+     g_logged_in=false;
+  }
+  
+  if(to.name == 'LoginForm' && g_logged_in==true) next({name: 'Home'});
+  else if(to.name == 'LogoutForm' && g_logged_in==false) next({name: 'Home'});
+  else next()
+})
+
 export default router

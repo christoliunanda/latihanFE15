@@ -25,9 +25,11 @@ import {Mahasiswa} from './../entity/Mahasiswa';
 
 @Component
 export default class RegistrationForm extends Vue {
+  //Member
   private formNama: string = "";
   private formId: number = 0;
   private formRole: string = "";
+  //Functions
   public formSubmit(): void{
     if(this.formRole == "Admin" ){
       const newAdmin: Admin = new Admin();
