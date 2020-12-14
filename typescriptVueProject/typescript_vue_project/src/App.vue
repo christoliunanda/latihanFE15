@@ -28,6 +28,10 @@
   color: #2c3e50;
 }
 
+table{
+  margin-left: auto;
+  margin-right: auto;
+}
 #nav {
   padding: 30px;
 
@@ -39,5 +43,7 @@
       color: #42b983;
     }
   }
+
+
 }
 </style>
