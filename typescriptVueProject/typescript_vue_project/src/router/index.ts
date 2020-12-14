@@ -7,8 +7,23 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'InputForm',
-    component: () => import('../views/InputForm.vue')
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/registration',
+    name: 'RegistrationForm',
+    component: () => import('../views/RegistrationForm.vue')
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/logout',
+    name: 'LogoutForm',
+    component: () => import('../views/Logout.vue')
   },
   {
     path: '/about',
@@ -18,11 +33,7 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-  {
-    path: '/defaultHome',
-    name: 'DefaultHome',
-    component: Home
-  }
+
 ]
 
 const router = new VueRouter({

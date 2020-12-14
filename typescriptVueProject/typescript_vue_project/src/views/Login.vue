@@ -1,90 +1,72 @@
 <template>
-  <div class="InputForm">
+  <div class="LoginForm">
     <form>
+        <h1 align="center">Login Page</h1>
         <label>ID</label><br>
         <input type="number" id="formId" v-model="formId" placeholder="Put your NIP or NIM here"><br>
-        <label>Nama</label><br>
-        <input type="text" id="formNama" v-model="formNama" placeholder="Put your name here"><br>
-        <label>Role</label><br>
-        <input type="radio" id="formRole" v-model="formRole" value="Admin">
-        <label id="formRole" for="formRole">Admin</label>
-        <input type="radio" id="formRole" v-model="formRole" value="Mahasiswa">
-        <label id="formRole" for="formRole">Mahasiswa</label> <br>
-        <button type="button" v-on:click="formSubmit()">Submit</button>
+        <button type="button" v-on:click="formSubmit()">Log In</button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-interface User{
-  id:number;
-  nama:string;
-  role: Role;
-}
+import {Admin} from './../entity/Admin';
+import {Mahasiswa} from './../entity/Mahasiswa';
 
-enum Role{
-  ADMIN = "ADMIN",
-  MAHASISWA = "MAHASISWA"
-}
 
-abstract class BaseUser implements User{
-  public id: number = 0;
-  public nama: string = "";
-  public abstract role: Role;
-
-  showInLog(){
-    console.log(`Full Detail\nRole: ${this.role}\nName: ${this.nama}\nID: ${this.id}`);
-    alert("Output is in console log");
-  }
-}
-
-class Mahasiswa extends BaseUser{
-  public nim: number = 0;
-  public role: Role = Role.MAHASISWA
-
-  showInLog(){
-    console.log(`Welcome ${this.role} ${this.nama} with NIM of ${this.nim}\n`);
-    //console.log("Welcome "+this.role+" "+this.nama+"\n"+" with NIM of "+this.nim+"\n");
-    super.showInLog();
-  }
-}
-
-class Admin extends BaseUser {
-  public nip: number = 0;
-  public role: Role= Role.ADMIN;
-  showInLog(){
-    console.log(`Welcome ${this.role} ${this.nama} with NIM of ${this.nip}\n`);
-    //console.log("Welcome "+this.role+" "+this.nama+" with NIP of "+this.nip+"\n");
-    super.showInLog();
-  }
-}
 
 @Component
-export default class InputForm extends Vue {
+export default class LoginForm extends Vue {
   private formNama: string = "";
   private formId: number = 0;
   private formRole: string = "";
   public formSubmit(): void{
-    
     if(this.formRole == "Admin" ){
       const newAdmin: Admin = new Admin();
       newAdmin.nip = this.formId;
       newAdmin.id = this.formId;
       newAdmin.nama = this.formNama;
       newAdmin.showInLog();
+
+      this.regisNewUser(newAdmin);
+
+
     }else if(this.formRole == "Mahasiswa" ){
       const newMahasiswa: Mahasiswa = new Mahasiswa();
       newMahasiswa.nim = this.formId;
       newMahasiswa.id = this.formId;
       newMahasiswa.nama = this.formNama;
       newMahasiswa.showInLog();
+
+      this.regisNewUser(newMahasiswa);
     }else{
       alert("Role non-existant, please choose a role");
     }
 
-
   }
+
+  public regisNewUser(newUser:any){
+      //Local Storage Save logic
+      let oldUsersList = localStorage.getItem('users');
+      if(oldUsersList == null){
+        let users = [newUser];
+        localStorage.setItem('users',JSON.stringify(users));
+      }else{
+        let users = [];
+        let tempParse = JSON.parse(oldUsersList);
+        for(let index in JSON.parse(oldUsersList)){
+          console.log(index);
+          console.log(oldUsersList);
+          users.push(tempParse[index]);
+        }
+        users.push(newUser);
+        console.log(users);
+        localStorage.setItem('users',JSON.stringify(users));
+      }
+  }
+
+
 
 
 }
