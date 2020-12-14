@@ -26,6 +26,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Logout.vue')
   },
   {
+    path: '/jsPlaceholder',
+    name: 'jsPlaceholderView',
+    component: () => import('../views/jsPlaceHolderView.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
