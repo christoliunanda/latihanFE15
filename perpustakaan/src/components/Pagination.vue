@@ -1,6 +1,36 @@
 <template>
     <div class="pagination-item">
-        
+        <component :is="rootTag" :class="rootClass">
+            <slot></slot>
+            <component v-if="!isBeingRequest && tdatas.length > 0"
+                        :is="renderContainerTag" :class="renderContainerClass">
+                <template v-for='(data, index) in tdatas'>
+                    <slot name="onRenderedData" : data="data" :index="index" :currentPage="currentPage" />
+                </template>
+            </component>
+            <slot v-else-f="$slots['onRequestOrEmptyData']" name="onRequestorEmptyData"/>
+        </component>
+        <nav aria-label="..." v-if="totalPage > 1" class="float-right">
+            <ul class="pagination pagination-sm">
+                <li v-if="showPrevious" class="page-item">
+                    <a class="page-link" href="#" @click="(e) => onPagination(e, 'previous')">
+                        <span aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li v-for="(pagination, index) in paginations" :key="`pagination-${index}`"
+                    :class="`${pagination.className} ${pagination.value === '...' ? 'disabled' : ''}`"
+                    :style="`cursor: ${pagination.value === '...' ? 'not-allowed' : 'pointer'}`">
+                    <a href='#' class='page-link' @click="(e) => onPagination(e,pagination)">
+                        {{pagination.value}}
+                    </a>
+                </li>
+                <li v-if="showNext" class="page-item">
+                    <a class="page-link" href="#" @click="(e) => onPagination(e,'next')">
+                        <span aria-hidden="true">#</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
