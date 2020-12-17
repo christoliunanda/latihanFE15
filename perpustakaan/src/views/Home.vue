@@ -16,3 +16,13 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 })
 export default class Home extends Vue {}
 </script>
+
+<style lang='scss' scoped>
+  .home-page{
+    color:#404E67;
+    background: #F5F7FA;
+    font-family: 'Open Sans', sans-serif;
+    min-height: 100vh;
+
+  }
+</style>
