@@ -1,5 +1,6 @@
+import Session from '@/common/Session'
 import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import VueRouter, { NavigationGuardNext, Route, RouteConfig, RouteRecord } from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
@@ -25,5 +26,26 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
+  const validate = (record: Route | RouteRecord, key: string) => {
+    record = record === null? to : record;
+
+    return typeof record.meta[key] === "function"
+      ? record.meta[key](to)
+      : record.meta[key];
+  };
+
+  const requiredAuth: boolean = to.matched.some((r: RouteRecord) => validate(r, 'requiredAuth'));
+  const deniedAuth: boolean = to.matched.some((r: RouteRecord) => validate(r, 'deniedAuth'));
+
+  if(requiredAuth && !Session.isLogin()){
+    return next({path:'/'});
+  }else if (Session.isLogin() && deniedAuth){
+    return next ({path:'/home'});
+  }
+
+  return next();
+});
 
 export default router
