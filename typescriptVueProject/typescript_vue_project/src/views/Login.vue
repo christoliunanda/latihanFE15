@@ -35,7 +35,6 @@ export default class LoginForm extends Vue {
                 localStorage.setItem('currentUser',JSON.stringify(tempUserList[i]));
                 console.log("Login Success");
                 router.push({name: "Home"});
-            
                 this.$notify({
                     group: 'foo',
                     title: 'Important message',
@@ -46,7 +45,7 @@ export default class LoginForm extends Vue {
               }
           }
       }
-  }
+    }
 
 }
 </script>

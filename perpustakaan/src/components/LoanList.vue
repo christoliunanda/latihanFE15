@@ -6,10 +6,13 @@
 
     import {Component,Vue} from 'vue-property-decorator';
 
-    import StatusCode from "../../common/StatusCode"
+    import StatusCode from "./../common/StatusCode"
 
-    import Book from "../../entity/Book";
-    import Loan from '../../entity/Loan';
+    import User from "./../entity/User"
+
+    import CustomTable from "./CustomTable.vue"
+    import Book from "./../entity/Book";
+    import Loan from './../entity/Loan';
 
     @Component({components: {CustomTable}})
     export default class BookList extends Vue{
@@ -22,9 +25,10 @@
 
         public rows: number = 0;
 
-        publis isBeingRequest: boolean = false;
+        public isBeingRequest: boolean = false;
 
         public get user(): User{
+            return null;
         }
 
         public doValidate(loan: Loan){
@@ -33,7 +37,13 @@
         public onChangeBook(value: string, loan: Loan){
         }
 
-        
+        public onAddorEdit(){
+
+        }
+
+        public doFind(){
+            
+        }
 
 
 
