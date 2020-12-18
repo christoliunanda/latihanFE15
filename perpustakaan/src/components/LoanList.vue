@@ -1,5 +1,7 @@
 <template>
     <div class="loan-list p-1 p-md-5">
+
+    </div>
 </template>
 
 <script lang="ts">
@@ -14,8 +16,10 @@
     import Book from "./../entity/Book";
     import Loan from './../entity/Loan';
 
+    
+
     @Component({components: {CustomTable}})
-    export default class BookList extends Vue{
+    export default class LoanList extends Vue{
         
         public baseApi: string = "http://202.152.159.164:8088/perpus/";
 
@@ -28,7 +32,8 @@
         public isBeingRequest: boolean = false;
 
         public get user(): User{
-            return null;
+            let tempUser: User = new User();
+            return tempUser;
         }
 
         public doValidate(loan: Loan){
@@ -42,7 +47,7 @@
         }
 
         public doFind(){
-            
+
         }
 
 

@@ -24,19 +24,19 @@
                     </tr>
                 </thead>
                 <tr slot="onRenderedData" slot-scope="{data,index}">
-                    <slot name="renderedTd" :record="record" :data="data" :index="index"/<
+                    <slot name="renderedTd" :record="record" :data="data" :index="index"/>
                     <td v-if="hasAction"
                         class="d-md-flex justify-content-center align-item-center align-middle">
                         <template v-if="record && record.id === data.id">
                             <button type="button"
                                     class="btn btn-sm btn-primary m-2 mt-md-0 mb-md-0"
-                                    @click"() => doSave(index)">
+                                    @click="() => doSave(index)">
                                 Save
                             </button>
 
                             <button type="button"
                                     class="btn btn-sm btn-warning m-2 mt-md-0 mb-md-0 text-white"
-                                    @click"onCancelAddOrEdit">
+                                    @click="onCancelAddOrEdit">
                                 Save
                             </button>
                             
@@ -89,25 +89,25 @@
     @Component({components: {Pagination}})
     export default class CustomTable<E extends BaseEntity> extends Vue{
         @Prop({default: ""})
-        public baseApi: string;
+        public baseApi!: string;
 
         @Prop({default: BaseEntity})
-        public entity: new () => E;
+        public entity!: new () => E;
 
         @Prop({default: () => true})
-        public validate: (record: E) => boolean;
+        public validate: (record: E) => boolean = () => true;
 
         @Prop({default: 1})
-        public totalColumn: number;
+        public totalColumn!: number;
 
         @Prop({default: true})
-        public canAdd: boolean;
+        public canAdd!: boolean;
 
         @Prop({default: true})
-        public canEdit: boolean;
+        public canEdit!: boolean;
 
         @Prop({default: true})
-        public canDelete: boolean;
+        public canDelete: boolean = true;
 
         public isBeingRequest: boolean = false;
 
@@ -120,6 +120,7 @@
         public limit: number = 5;
 
         public rows: number = 0;
+        
 
         
 
