@@ -1,8 +1,8 @@
-import { deserialize, serialize } from 'cerialize';
+import { deserialize, inheritSerialization, serialize } from 'cerialize';
 
 import BaseEntity from './BaseEntity';
 
-
+@inheritSerialization(BaseEntity)
 export default class Book extends BaseEntity {
     
     @deserialize
