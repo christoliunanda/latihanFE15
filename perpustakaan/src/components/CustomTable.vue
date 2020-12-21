@@ -193,7 +193,7 @@
 
         }
 
-        public doDelte(){
+        public doDelete(){
 
         }
 
