@@ -40,6 +40,7 @@ import {get} from 'lodash';
 import Axios, {AxiosResponse, AxiosError} from "axios";
 import { Component, Vue } from 'vue-property-decorator';
 
+import Session from "./../common/Session";
 import User from "./../entity/User";
 import Notification from "./../common/Notification";
 import StatusCode from "./../common/StatusCode";
@@ -73,16 +74,23 @@ export default class Login extends Vue {
         console.log("post success");
         console.log(get(response, 'data.status'));
         if(get(response, 'data.status') === StatusCode.LOGIN_SUCCESS){
-          const user: User = User.InstanceFrom(response.data.data);
-
-          console.log(user);
-          console.log(user instanceof User);
+          Session.set(User.InstanceFrom(response.data.data));
+          this.$notify({
+              group:'notif',
+              title:'Login Success!'
+          });
+          
         }
 
       }).catch((error: AxiosError) =>{
           console.error(error);
 
-          Notification.snackbar(StatusCode.CONNECTION_FAILED);
+          this.$notify({
+              group:'notif',
+              title:'Connection Error!'
+          });
+
+          //Notification.snackbar(StatusCode.CONNECTION_FAILED);
       });
 
     }

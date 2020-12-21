@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <router-view/>
+    <notifications group="notif"/>
   </div>
+  
 </template>
 
 <style lang="scss">
