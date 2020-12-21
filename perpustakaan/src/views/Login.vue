@@ -36,10 +36,12 @@
 </template>
 
 <script lang="ts">
+import {get} from 'lodash';
 import Axios, {AxiosResponse, AxiosError} from "axios";
 import { Component, Vue } from 'vue-property-decorator';
 
 import User from "./../entity/User";
+import Notification from "./../common/Notification";
 import StatusCode from "./../common/StatusCode";
 
 @Component
@@ -66,8 +68,11 @@ export default class Login extends Vue {
       const baseApi: string = "http://202.152.159.164:8088/perpus/";
       const url: string = `${baseApi}auth/${this.isRegister ? 'do-register' : 'do-login'}`;
 
+      console.log(this.user.serialize());
       Axios.post(url, this.user.serialize(), {responseType: 'json'}).then((response: AxiosResponse) =>{
-        if(response && response.data && response.data.status === StatusCode.LOGIN_SUCCESS){
+        console.log("post success");
+        console.log(get(response, 'data.status'));
+        if(get(response, 'data.status') === StatusCode.LOGIN_SUCCESS){
           const user: User = User.InstanceFrom(response.data.data);
 
           console.log(user);
@@ -76,6 +81,8 @@ export default class Login extends Vue {
 
       }).catch((error: AxiosError) =>{
           console.error(error);
+
+          Notification.snackbar(StatusCode.CONNECTION_FAILED);
       });
 
     }
