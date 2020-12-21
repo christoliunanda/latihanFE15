@@ -52,4 +52,12 @@ export default abstract class BaseEntity{
         return Array.isArray(param) ? param.map(parse) : parse(param);
     }
 
+    public static OnSerialized(instance: BaseEntity, json:any){
+        console.log("OnSerialized", instance, json);
+    }
+
+    public static OnDeseerialized(instance: BaseEntity, json:any){
+        console.log("OnDeserialized", instance, json);
+    }
+
 }

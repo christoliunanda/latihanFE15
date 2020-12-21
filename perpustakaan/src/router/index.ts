@@ -9,13 +9,13 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'login',
-    meta: {deniedAuth: true},
+    //meta: {deniedAuth: true},
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
     path: '/home',
     name: 'home',
-    meta: {requiredAuth: true},
+    //meta: {requiredAuth: true},
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
   {

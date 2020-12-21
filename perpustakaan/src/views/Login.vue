@@ -77,12 +77,12 @@ export default class Login extends Vue {
       const baseApi: string = "http://202.152.159.164:8088/perpus/";
       const url: string = `${baseApi}auth/${this.isRegister ? 'do-register' : 'do-login'}`;
 
-      console.log(url);
+      //console.log(url);
 
       console.log(this.user.serialize());
       Axios.post(url, this.user.serialize(), {responseType: 'json'}).then((response: AxiosResponse) =>{
         console.log(response);
-        console.log(User);
+        //console.log(User);
         if(get(response, 'data.status') === StatusCode.LOGIN_SUCCESS){
           Session.set(User.InstanceFrom(response.data.data));
           this.$router.push("/home");
@@ -97,6 +97,7 @@ export default class Login extends Vue {
               group:'notif',
               title:'Register Success!'
           });
+          this.$router.push({path: "/"});
         }
 
       }).catch((error: AxiosError) =>{
