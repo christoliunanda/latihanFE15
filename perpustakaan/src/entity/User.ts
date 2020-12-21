@@ -1,5 +1,5 @@
 import { deserialize, inheritSerialization, serialize } from 'cerialize';
-import { Component, Vue } from 'vue-property-decorator';
+
 
 import Role from "../common/Role";
 import BaseEntity from './BaseEntity';
