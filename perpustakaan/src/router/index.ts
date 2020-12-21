@@ -9,13 +9,13 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'login',
-    //meta: {deniedAuth: true},
+    meta: {deniedAuth: true},
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
     path: '/home',
     name: 'home',
-    //meta: {requiredAuth: true},
+    meta: {requiredAuth: true},
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
   {
@@ -51,9 +51,7 @@ router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
   const requiredAuth: boolean = to.matched.some((r: RouteRecord) => validate(r, 'requiredAuth'));
   const deniedAuth: boolean = to.matched.some((r: RouteRecord) => validate(r, 'deniedAuth'));
 
-  console.log("Session isLogin() Value: "+Session.isLogin());
-  console.log(requiredAuth);
-  console.log(deniedAuth);
+  
   if(requiredAuth && !Session.isLogin()){
     return next({path:'/'});
   }else if (Session.isLogin() && deniedAuth){

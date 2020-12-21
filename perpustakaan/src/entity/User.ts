@@ -1,10 +1,10 @@
-import { deserialize, serialize } from 'cerialize';
+import { deserialize, inheritSerialization, serialize } from 'cerialize';
 import { Component, Vue } from 'vue-property-decorator';
 
 import Role from "../common/Role";
 import BaseEntity from './BaseEntity';
 
-
+@inheritSerialization(BaseEntity)
 export default class User extends BaseEntity {
 
     @deserialize

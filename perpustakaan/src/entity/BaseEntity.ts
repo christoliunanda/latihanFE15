@@ -53,11 +53,11 @@ export default abstract class BaseEntity{
     }
 
     public static OnSerialized(instance: BaseEntity, json:any){
-        console.log("OnSerialized", instance, json);
+        BaseEntity.OnNormalize(json);
     }
 
-    public static OnDeseerialized(instance: BaseEntity, json:any){
-        console.log("OnDeserialized", instance, json);
+    public static OnDeserialized(instance: BaseEntity, json:any){
+        BaseEntity.OnNormalize(instance);
     }
 
 }

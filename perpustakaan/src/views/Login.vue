@@ -85,6 +85,9 @@ export default class Login extends Vue {
         //console.log(User);
         if(get(response, 'data.status') === StatusCode.LOGIN_SUCCESS){
           Session.set(User.InstanceFrom(response.data.data));
+          const temp = User.InstanceFrom(response.data.data);
+          console.log(temp);
+          console.log(temp instanceof User);
           this.$router.push("/home");
           this.$notify({
               group:'notif',
