@@ -1,5 +1,4 @@
 import { deserialize, serialize } from 'cerialize';
-import { Component, Vue } from 'vue-property-decorator';
 
 import BaseEntity from './BaseEntity';
 

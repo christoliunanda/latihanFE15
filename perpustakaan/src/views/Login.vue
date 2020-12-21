@@ -81,14 +81,16 @@ export default class Login extends Vue {
 
       console.log(this.user.serialize());
       Axios.post(url, this.user.serialize(), {responseType: 'json'}).then((response: AxiosResponse) =>{
-        console.log("post success");
-        console.log(get(response, 'data.status'));
+        console.log(response);
+        console.log(User);
         if(get(response, 'data.status') === StatusCode.LOGIN_SUCCESS){
           Session.set(User.InstanceFrom(response.data.data));
+          this.$router.push("/home");
           this.$notify({
               group:'notif',
               title:'Login Success!'
           });
+          
           
         }else if(get(response,'data.status') === StatusCode.SAVE_SUCCESS){
           this.$notify({
