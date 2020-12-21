@@ -17,6 +17,11 @@
             <input class="form-control" placeholder="Profile Name" v-model="user.profileName" type="text" required>
           </div>
 
+          <div v-if="isRegister" class="form-group">
+            <label>Your address</label>
+            <input class="form-control" placeholder="Address" v-model="user.address" type="text" required>
+          </div>
+
           <div class="form-group">
             <label>Your password</label>
             <input class="form-control" placeholder="********" v-model="user.password" type="password" required>
@@ -59,15 +64,20 @@ export default class Login extends Vue {
   }
 
   public doSubmit(){
-    let valid: boolean = this.user.username !== "" && this .user.password !== "";
+    console.log("doSubmit");
+    let valid: boolean = this.user.username !== "" && this.user.password !== "";
+
+    
 
     if (this.isRegister) {
-      return this.$route.query.register === 'true';
+      valid = true && this.user.profileName !=="" && this.user.address !== "";
     }
 
     if(valid){
       const baseApi: string = "http://202.152.159.164:8088/perpus/";
       const url: string = `${baseApi}auth/${this.isRegister ? 'do-register' : 'do-login'}`;
+
+      console.log(url);
 
       console.log(this.user.serialize());
       Axios.post(url, this.user.serialize(), {responseType: 'json'}).then((response: AxiosResponse) =>{
@@ -80,6 +90,11 @@ export default class Login extends Vue {
               title:'Login Success!'
           });
           
+        }else if(get(response,'data.status') === StatusCode.SAVE_SUCCESS){
+          this.$notify({
+              group:'notif',
+              title:'Register Success!'
+          });
         }
 
       }).catch((error: AxiosError) =>{
