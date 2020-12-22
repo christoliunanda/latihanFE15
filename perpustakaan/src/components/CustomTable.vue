@@ -134,9 +134,11 @@
             }else{
                 console.log("OnAddOrEdit")
                 if (record === null){
+                    console.log("1")
                     this.record = new this.entity();
                     this.records.unshift(new this.entity());
                 }else{
+                    console.log("2")
                     this.record = record.clone();
                 }
 
@@ -204,6 +206,7 @@
         }
 
         public doSave(index: number){
+            console.log("doSave");
             if (this.validate(this.record)){
                 this.isBeingRequest = true;
 
@@ -218,7 +221,8 @@
                 }).then((response: AxiosResponse) => {
                     const status: string = get(response, 'data.status');
                     
-                    if(status === StatusCode.SAVE_SUCCESS || status === StatusCode.UPDATE_SUCCESS){
+                    if(status === StatusCode.SAVE_SUCCESS || status === StatusCode.UPDATE_SUCCESS || status === StatusCode.OPERATION_COMPLETE){
+                        
                         this.$set(this.records, index, get(response, "data.data"));
 
                         this.$nextTick(() => this.record = null);

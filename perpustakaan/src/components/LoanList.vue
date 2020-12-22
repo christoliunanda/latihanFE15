@@ -82,11 +82,11 @@
         }
 
         public onChangeBook(value: string, loan: Loan){
-            if(value = "loadMore") {
+            console.log(value);
+            if(value == "loadMore") {
                 this.doFind();
             } else {
                 const index: number = this.books.findIndex(book => book.id === parseInt(value));
-
                 loan.book = index > -1 ? this.books[index].clone() : new Book();
 
                 this.$nextTick(() => {
