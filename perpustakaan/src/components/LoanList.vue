@@ -23,7 +23,7 @@
                         <option value="" disabled selected>Please select book</option>
                         <option v-for="(book, idx) in books" :key="`${idx}-{book.id}`" :value="book.id">
                             {{book.title}}    
-                        </option> <!--belum selesai -->
+                        </option>
                         <option v-if="books.length < rows" value="loadMore" class="text-info">
                             Load more
                         </option>
