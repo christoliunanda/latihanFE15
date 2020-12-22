@@ -19,7 +19,7 @@
                 <td class="align-middle">
                     <input v-if="record && record.id === data.id" class="form-control" placeholder="Name"
                             type="text" v-model="record.name">
-                    <span v-else>{{data.name}}</span>
+                    <span v-else>{{data.title}}</span>
                 </td>
                 <td class="align-middle">
                     <input v-if="record && record.id === data.id" class="form-control" placeholder="Description"
@@ -54,9 +54,9 @@
     import CustomTable from "./CustomTable.vue";
 
     @Component({components: {CustomTable}})
-    export default class Booklist extends Vue{
+    export default class BookList extends Vue{
 
-        public baseApi: string ="http://202.152.159.164.8088/perpus/books/";
+        public baseApi: string ="http://202.152.159.164:8088/perpus/books/";
 
         public entity: new () => Book = Book;
 
@@ -65,9 +65,9 @@
         }
 
         public doValidate(book: Book){
-            const keys: Array<keyof Book> = ["name", "description", "isbn", "author", "publisher"];
+            const keys: Array<keyof Book> = ["title", "description", "isbn", "author", "publisher"];
 
-            return keys.every(prop => book[prop] !== "");
+            return keys.every(prop => book[prop] != "");
         }
     }
 </script>

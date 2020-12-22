@@ -5,7 +5,7 @@
             <component v-if="!isBeingRequest && tdatas.length > 0"
                         :is="renderContainerTag" :class="renderContainerClass">
                 <template v-for='(data, index) in tdatas'>
-                    <slot name="onRenderedData" : data="data" :index="index" :currentPage="currentPage" />
+                    <slot name="onRenderedData" :data="data" :index="index" :currentPage="currentPage" />
                 </template>
             </component>
             <slot v-else-f="$slots['onRequestOrEmptyData']" name="onRequestorEmptyData"/>

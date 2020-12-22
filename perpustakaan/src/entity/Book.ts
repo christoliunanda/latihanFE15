@@ -7,7 +7,7 @@ export default class Book extends BaseEntity {
     
     @deserialize
     @serialize
-    public name: string = "";
+    public title: string = "";
 
     @deserialize
     @serialize

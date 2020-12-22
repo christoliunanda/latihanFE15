@@ -2,13 +2,13 @@
     <div class="custom-table table-responsive">
         <div class="table-wrapper">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <slot name='title' />
+                <slot name="title" />
                 <button v-if="canAdd" type="button" class="btn btn-info"
-                    @click="() => onAddorEdit">
-                Add
+                        @click="() => onAddOrEdit()">
+                    Add
                 </button>
             </div>
-            <pagination rootTag="table" rootClass="table table-bordered"   
+            <pagination rootTag="table" rootClass="table table-bordered" 
                         renderContainerTag="tbody" renderContainerClass="table-body"
                         :isBeingRequest="isBeingRequest"
                         :offset="offset" :limit="limit"
@@ -25,7 +25,7 @@
                 </thead>
                 <tr slot="onRenderedData" slot-scope="{data,index}">
                     <slot name="renderedTd" :record="record" :data="data" :index="index"/>
-                    <td v-if="hasAction"
+                    <td v-if="hasAction" 
                         class="d-md-flex justify-content-center align-item-center align-middle">
                         <template v-if="record && record.id === data.id">
                             <button type="button"
@@ -34,31 +34,27 @@
                                 Save
                             </button>
 
-                            <button type="button"
+                            <button type="button" 
                                     class="btn btn-sm btn-warning m-2 mt-md-0 mb-md-0 text-white"
                                     @click="onCancelAddOrEdit">
-                                Save
+                                Cancel
                             </button>
-                            
-                            <button v-if="canEdit && data.id && !record" type="button"
-                                    class="btn btn-sm btn-warning m-2 mt-md-0 mb-md-0 text-white"
-                                    @click="() => onAddOrEdit(data)">
-                            >
-                                Edit
-                            </button>
-                            <button v-if="canDelete && data.id && !record" type="button"
-                                    class="btn btn-sm btn-danger m-2 mt-md-0 mb-md-0 "
-                                    @click="() => doDelete(data, index)"
-                            >
-                                
-                            </button>
-                    >
+                        </template>
+                        <button v-if="canEdit && data.id && !record" type="button"
+                                class="btn btn-sm btn-warning m-2 mt-md-0 mb-md-0 text-white"
+                                @click="() => onAddOrEdit(data)">
+                            Edit
+                        </button>
+                        <button v-if="canDelete && data.id && !record" type="button"
+                                class="btn btn-sm btn-danger m-2 mt-md-0 mb-md-0"
+                                @click="() => doDelete(data, index)">
+                            Delete
+                        </button>
                     </td>
                 </tr>
                 <tr slot="onRequestOrEmptyData" class="text-center">
                     <td :colspan="(totalColumn + (hasAction ? 1: 0))">
-                        <span v-if="isBeingRequest"
-                                class="spinner-border text-dark" role="status">
+                        <span v-if="isBeingRequest" class="spinner-border text-dark" role="status">
                             <span class="sr-only"> </span>
                         </span>
                         <span v-else>No data found</span>
@@ -95,16 +91,16 @@
         public entity!: new () => E;
 
         @Prop({default: () => true})
-        public validate: (record: E) => boolean = () => true;
+        public validate: (record: E) => boolean;
 
         @Prop({default: 1})
-        public totalColumn!: number;
+        public totalColumn: number;
 
         @Prop({default: true})
-        public canAdd!: boolean;
+        public canAdd: boolean;
 
         @Prop({default: true})
-        public canEdit!: boolean;
+        public canEdit: boolean;
 
         @Prop({default: true})
         public canDelete: boolean = true;
@@ -120,7 +116,7 @@
         public limit: number = 5;
 
         public rows: number = 0;
-        
+
         public get hasAction(){
             return this.canAdd || this.canEdit || this.canDelete
         }
@@ -129,12 +125,17 @@
             this.doFind();
         }
 
-        public onAddorEdit(record: E = null){
+        public onAddOrEdit(record: E = null){
             if (this.record !== null){
-                //Notification.snackbar("Please finish previous step or cancel it";)
+                this.$notify({
+                    group: 'notif',
+                    title: 'Please finish previous step or cancel it'
+                });
             }else{
                 if (record === null){
+                    console.log(this.entity);
                     this.record = new this.entity();
+                    
                     this.records.unshift(new this.entity());
                 }else{
                     this.record = record.clone();
@@ -171,7 +172,9 @@
                     headers: {"Authorization": Session.get("token")}
                 }).then((response: AxiosResponse) =>{
                     if(get(response,"data.status") === StatusCode.OPERATION_COMPLETE){
+                        console.log(response);
                         this.records = Deserialize(get(response, "data.data", []), this.entity);
+                        console.log(this.records);
                         this.rows = get(response, "data.rows", 0);
                         this.offset = offset;
                     }else{
@@ -201,9 +204,11 @@
             }
         }
 
-        public doSafe(index: number){
+        public doSave(index: number){
             if (this.validate(this.record)){
                 this.isBeingRequest = true;
+
+                console.log(this.record.serialize());
 
                 Axios.request({
                     url: this.baseApi,
@@ -213,7 +218,7 @@
                     headers: {'Authorization': Session.get("token")}
                 }).then((response: AxiosResponse) => {
                     const status: string = get(response, 'data.status');
-
+                    
                     if(status === StatusCode.SAVE_SUCCESS || status === StatusCode.UPDATE_SUCCESS){
                         this.$set(this.records, index, get(response, "data.data"));
 
