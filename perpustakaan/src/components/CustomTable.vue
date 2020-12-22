@@ -132,10 +132,9 @@
                     title: 'Please finish previous step or cancel it'
                 });
             }else{
+                console.log("OnAddOrEdit")
                 if (record === null){
-                    console.log(this.entity);
                     this.record = new this.entity();
-                    
                     this.records.unshift(new this.entity());
                 }else{
                     this.record = record.clone();
@@ -208,7 +207,7 @@
             if (this.validate(this.record)){
                 this.isBeingRequest = true;
 
-                console.log(this.record.serialize());
+                //console.log(this.record.serialize());
 
                 Axios.request({
                     url: this.baseApi,

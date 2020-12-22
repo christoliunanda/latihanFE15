@@ -18,7 +18,7 @@
             <template slot="renderedTd" slot-scope="{record, data}">
                 <td class="align-middle">
                     <input v-if="record && record.id === data.id" class="form-control" placeholder="Name"
-                            type="text" v-model="record.name">
+                            type="text" v-model="record.title">
                     <span v-else>{{data.title}}</span>
                 </td>
                 <td class="align-middle">
