@@ -30,7 +30,8 @@ export default class User extends BaseEntity {
     public token: string = "";
 
     public get isAdmin(){
-        return this.role === Role.ROLE_ADMIN;
+        //return this.role === Role.ROLE_ADMIN;
+        return this.role === Role.ROLE_USER;    
     }
 
 }

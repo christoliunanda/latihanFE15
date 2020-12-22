@@ -121,9 +121,6 @@
 
         public rows: number = 0;
         
-
-        
-
         public get hasAction(){
             return this.canAdd || this.canEdit || this.canDelete
         }
@@ -154,6 +151,11 @@
                 }
 
                 //Notification.snackbar(`Cancel ${this.record.id ? "edit" : "add new"} data`);
+                this.$notify({
+                    group:'notif',
+                    title:`Cancel ${this.record.id ? "edit" : "add new"} data`
+                });
+
 
                 this.$nextTick(() => this.record = null);
             }
@@ -174,11 +176,21 @@
                         this.offset = offset;
                     }else{
                         //Notification.snackbar(StatusCode.DATA_NOT_FOUND);
+                        this.$notify({
+                            group:'notif',
+                            title:StatusCode.DATA_NOT_FOUND
+                        });
                     }
                 }).catch((error: AxiosError) => {
                     console.error(error);
 
                     //Notification.snackbar(StatusCode.CONNECTION_FAILED);
+                    this.$notify({
+                        group:'notif',
+                        title:StatusCode.CONNECTION_FAILED
+                    });
+
+                    
 
                     if(typeof revert === "function"){
                         revert();
@@ -189,19 +201,77 @@
             }
         }
 
-        public doSafe(){
+        public doSafe(index: number){
+            if (this.validate(this.record)){
+                this.isBeingRequest = true;
 
+                Axios.request({
+                    url: this.baseApi,
+                    responseType: 'json',
+                    data: this.record.serialize(),
+                    method: this.record.id? 'put' : 'post',
+                    headers: {'Authorization': Session.get("token")}
+                }).then((response: AxiosResponse) => {
+                    const status: string = get(response, 'data.status');
+
+                    if(status === StatusCode.SAVE_SUCCESS || status === StatusCode.UPDATE_SUCCESS){
+                        this.$set(this.records, index, get(response, "data.data"));
+
+                        this.$nextTick(() => this.record = null);
+
+                        this.$notify({
+                            group:'notif',
+                            title:status
+                        });
+                    }
+                }).catch((error: AxiosError) =>{
+                    console.error(error);
+
+                    this.$notify({
+                        group:'notif',
+                        title:StatusCode.CONNECTION_FAILED
+                    });
+                }).finally(()=>{
+                    this.isBeingRequest = false;
+                })
+            }else{
+                this.$notify({
+                    group:'notif',
+                    title:'Please fill all field'
+                });
+            }
         }
 
-        public doDelete(){
+        public doDelete(record: E, index: number){
+            if (record.id && confirm("Are you sure delete this?")){
+                this.isBeingRequest = true;
 
+                Axios.delete(`${this.baseApi}${record.id}`,{
+                    responseType: 'json',
+                    headers: {'Authorization': Session.get("token")}  
+                }).then((response: AxiosResponse) =>{
+                    const status: string = get(response, "data.status");
+
+                    if(status === StatusCode.DELETE_SUCCESS){
+                        this.records.splice(index, 1);
+                    }
+
+                    this.$notify({
+                        group:'notif',
+                        title:status
+                    });
+
+                }).catch((error: AxiosError) =>{
+                    console.error(error);
+
+                    this.$notify({
+                        group:'notif',
+                        title:StatusCode.CONNECTION_FAILED
+                    });
+                }).finally(() => {
+                    this.isBeingRequest = false;
+                });
+            }
         }
-
-
-
-        
-
     }
-
-
 </script>

@@ -37,8 +37,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import Session from './../common/Session'
-import { Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 
+@Component
 export default class Pagination extends Vue {
     
     @Prop({default: 'div'})
