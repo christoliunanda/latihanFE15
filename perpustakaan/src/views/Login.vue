@@ -101,6 +101,11 @@ export default class Login extends Vue {
               title:'Register Success!'
           });
           this.$router.push({path: "/"});
+        }else{
+          this.$notify({
+              group:'notif',
+              title:get(response,'data.status')
+          });
         }
 
       }).catch((error: AxiosError) =>{

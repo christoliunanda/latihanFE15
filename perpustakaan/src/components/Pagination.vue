@@ -8,7 +8,7 @@
                     <slot name="onRenderedData" :data="data" :index="index" :currentPage="currentPage" />
                 </template>
             </component>
-            <slot v-else-f="$slots['onRequestOrEmptyData']" name="onRequestorEmptyData"/>
+            <slot v-else-if="$slots['onRequestOrEmptyData']" name="onRequestorEmptyData"/>
         </component>
         <nav aria-label="..." v-if="totalPage > 1" class="float-right">
             <ul class="pagination pagination-sm">
