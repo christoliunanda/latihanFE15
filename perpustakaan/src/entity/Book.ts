@@ -5,8 +5,8 @@ import BaseEntity from './BaseEntity';
 @inheritSerialization(BaseEntity)
 export default class Book extends BaseEntity {
     
-    @deserializeAs("title")
-    @serializeAs("title")
+    @deserialize
+    @serialize
     public title: string = "";
 
     @deserialize
