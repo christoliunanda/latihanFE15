@@ -2,3 +2,5 @@
 Repo milik Christopher untuk pelatihan Sinau Koding #15
 
 Folder defaultVueProject itu untuk proyek VueJs yang hanya pakai javascript sedangkan typescriptVueProject itu yang untuk typescript
+
+Proyek terakhir berada di folder perpustakaan yang menggunakan API perpustakaan
